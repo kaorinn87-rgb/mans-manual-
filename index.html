@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -395,12 +396,27 @@
   @media (max-width: 768px) {
     .layout { flex-direction: column; padding: 24px 16px; gap: 24px; }
     .sidebar { width: 100%; position: static; }
-    .sidebar nav { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-    .sidebar nav a.chapter-link { grid-column: 1 / -1; }
-    .card-header { padding: 18px 20px; }
-    .card-body { padding: 0 20px 20px; }
+    .sidebar nav { display: block; }
+    .card-header { padding: 16px 18px; gap: 8px; }
+    .card-body { padding: 0 16px 20px; }
     .usage-steps { grid-template-columns: 1fr 1fr; }
+    .card-label { font-size: 0.85rem; }
+    .chapter-title { font-size: 1.05rem; }
+
+    /* PCの改行を非表示 */
+    .card-body p br,
+    .point-box br,
+    .tip-box br,
+    .header-note br,
+    .usage-note br,
+    .final-section p br { display: none; }
+
+    /* スマホ専用改行を有効化 */
+    .sp-br { display: block !important; }
   }
+
+  /* スマホ専用改行タグ（PCでは非表示） */
+  .sp-br { display: none; }
 </style>
 </head>
 <body>
@@ -1273,6 +1289,161 @@
   }, { rootMargin: '-30% 0px -60% 0px' });
 
   sections.forEach(s => observer.observe(s));
+
+  // スマホ用テキスト置き換え
+  const spTexts = [
+    // ヘッダー
+    { sel: '.header-note', html: 'この取扱説明書は、身近な大切な男性との<br>関係に困ったときのためのものです。<br><br>強力なノウハウが詰まっているため、<br>むやみに使わず、<br>本当に必要なときにお役立てください。' },
+    // 活用方法
+    { sel: '.usage-note', html: '男性はいくつになっても<br><strong>基本的な性質は変わりません</strong>。<br><br>彼・夫・息子のどの関係にも応用できます。<br><br>男性は女性とはまったく異なる生き物です。<br>「別の生き物だ」と認めて接することが、<br>良好な関係の第一歩です。<br><br><em style="font-size:12px;opacity:0.7">※ 個人差があります。<br>すべて好意的に受け取ってください。</em>' },
+    // 第1章①子供の頃 本文
+    { sel: '#s-kodom .card-body p:first-child', html: '男性の根本は、<br>子供の頃からほとんど変わりません。<br>中身は中学生くらいで止まっていると<br>思ってください。<br><br>漫画やアニメに熱くなり、<br>下ネタが大好きで、<br>女性にモテたい気持ちも健在。<br><br>変なところでカッコをつけますし、<br>自分の好きな話題になると<br>延々と喋り続けます。<br><br>一方、興味のない話はほとんど聞きません。' },
+    // 第1章① ポイント
+    { sel: '#s-kodom .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>男性に「大人らしさ」を<br>期待して疲れたなら、<br>一旦諦めてみましょう。<br><br>男性は自然には大人になれません。<br>近くにいる女性が、<br>上手に育てていくほかないのです。' },
+    // 第1章②自信がない 本文p1
+    { sel: '#s-jishin .card-body p:first-child', html: '男性は常に不安を抱えています。<br>傍で「いつも頑張ってるね」<br>「あなたなら大丈夫」と<br>言ってくれる存在を必要としています。<br><br>ただ、それを素直に表現できません。<br>強がって一人で抱え込みます。<br>そもそも、不安な気持ちを周りに<br>どう伝えればいいか分からないのです。' },
+    // 第1章②自信がない 本文p2
+    { sel: '#s-jishin .card-body p:nth-child(2)', html: 'プライドが高いため、<br>「頑張ってるね」と声をかけると<br>逆に怒ってしまう人もいます。<br><br>照れ隠しでキツい言葉を<br>返してくることもあるので、<br>真意を読み解く練習をしてみてください。' },
+    // 第1章②自信がない アドバイス
+    { sel: '#s-jishin .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>大切なのは、彼の心情を想像して<br>さまざまなアプローチを試すこと。<br><br>あなた自身の心が安定しているときにだけ、<br>試してみれば十分です。' },
+    // 第1章③ズバッと 本文
+    { sel: '#s-omotta .card-body p', html: '男性は指摘を「その部分への改善提案」<br>として受け止めます。<br>女性が「私がダメなんだ」と<br>感情的に受け取りやすいのとは対照的です。<br><br>そのため男性も、相手に対して<br>ズバッと言ってしまいます。<br><br>「髪型が似合わない」「太った？」<br>といった失言は、<br>悪意ではなく、この特性から生まれます。' },
+    // 第1章③ズバッと アドバイス
+    { sel: '#s-omotta .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>嫌な気持ちになったときは感情的に怒らず、<br>「そう言われると嫌だ」と<br>はっきり伝えることが大切です。<br>言わなければ、男性には伝わりません。' },
+    // 第1章④過程より結論 本文
+    { sel: '#s-ketsuron .card-body p', html: '男性は話を聞くのが苦手で、<br>結論を先に知りたがります。<br><br>女性が「何時に起きて、何を食べて…」と<br>過程を丁寧に話す一方、<br><br>男性は「で、何が言いたいの？」と<br>すぐにまとめようとします。' },
+    // 第1章④過程より結論 アドバイス
+    { sel: '#s-ketsuron .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>男性に相談したい・話を聞いてほしい時は<br>できるだけ短く、結論から話しましょう。<br><br>「聞いてほしいだけなんだけど」<br>「アドバイスが欲しいんだけど」と<br>最初に伝えるのが効果的です。' },
+    // 第1章⑤パートナー 本文
+    { sel: '#s-partner .card-body p', html: '男性がパートナーに求めるのは<br>「女性であること」<br><br>女性は、自分が思っている以上に<br>男性に生きるパワーを与えています。<br><br>そのパワーを持続させるには、<br><br>『スカートを履くこと』<br>『揺れるイヤリングをつけること』<br>『神秘性を保つこと』が有効です。' },
+    // 第1章⑤パートナー ポイント
+    { sel: '#s-partner .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>「神秘性を保つ」とは、<br><br>・全てをさらけ出さないこと<br>・着替えやメイク姿をパートナーに見せない<br>・スケジュールを全部話さない<br><br>あなたの知られていない部分を<br>必ず残しておきましょう。' },
+    // 第1章⑥既読スルー 本文
+    { sel: '#s-line .card-body p', html: '男性は連絡が苦手です。<br><br>LINEをコミュニケーションツールではなく<br>「単なる連絡手段」として<br>認識している人が多く、<br>既読スルーは珍しくありません。<br><br>仕事が立て込んでいると、<br>返信する余裕が本当にないことも多いです。' },
+    // 第1章⑥既読スルー アドバイス
+    { sel: '#s-line .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>既読スルーされたら<br>「今忙しいんだな」と思い、<br>別のことに集中しましょう。<br><br>追いLINEはNG。<br><br>返事しやすいよう、<br>「YES/NO」で答えられるメッセージにする<br>ひと工夫も有効です。' },
+    // 第1章⑦ドヤ顔 本文
+    { sel: '#s-doya .card-body p', html: '女性にとって「やって当たり前」のことでも<br>男性は「褒めて！」という顔をします。<br><br>食器を洗っただけでドヤ顔をされると<br>腹が立ちますが、<br><br>ここは戦略的に活用しましょう。<br>褒めれば次もやってくれるのです。' },
+    // 第1章⑦ドヤ顔 ポイント
+    { sel: '#s-doya .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>「え、洗ってくれたの？<br>ありがとう、助かる！」<br>と笑顔で伝えてみてください。<br><br>ポイントは<br>【笑顔】【オーバーなほど喜ぶ】【褒める】<br>の3つ。<br><br>これは「アゲマン」になるための<br>重要なコツでもあります。' },
+    // 第1章⑧釣った魚 本文p1
+    { sel: '#s-tsuri .card-body p:first-child', html: '男性の本能として、<br>既に手に入れた存在には興味が薄れ、<br>新しい獲物を追いたくなります。<br><br>これは本能なので変えられません。<br><br>ただし、うまく「追われる存在であり続ける」<br>ことで対処できます。' },
+    // 第1章⑧釣った魚 本文p2
+    { sel: '#s-tsuri .card-body p:nth-child(2)', html: '尽くすのをやめ、自分の時間を充実させ、<br>神秘性を保つ。<br><br>自分がウキウキと生活しているだけで、<br>彼は「手放したくない」と<br>感じるようになります。' },
+    // 第1章⑧釣った魚 アドバイス
+    { sel: '#s-tsuri .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>女性であることを全力で楽しんでください。<br>オシャレをして<br>ウキウキと過ごすだけで十分です。' },
+    // 第1章⑨誘い方 本文
+    { sel: '#s-sasoi .card-body p', html: '「遊園地行こう？」と誘うと<br>男性は受け身になります。<br><br>「遊園地、連れて行ってほしいな」と<br>言い換えるだけで、<br><br>彼が主導権を持って<br>連れて行く流れになります。<br>男性は主導権を握ることが好きなのです。' },
+    // 第1章⑨誘い方 ポイント
+    { sel: '#s-sasoi .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>さらに大切なのは、<br>連れて行ってもらった後の<br><br>【笑顔】と【オーバーなほどの感謝】<br><br>これがあるから、次回も快く動いてくれます。' },
+    // 第1章⑩浮気 本文
+    { sel: '#s-uwaki .card-body p', html: '男性は女性が好きで、<br>無意識に目で追ってしまいます。<br>これは本能です。<br><br>浮気の背景には<br>「自信が持てない」<br>「存在意義が見出せない」<br>「妻が構ってくれない」<br><br>といった理由があることも多いです。' },
+    // 第1章⑩浮気 アドバイス
+    { sel: '#s-uwaki .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>防ぐには<br>「夫を認め、褒め、感謝を伝える」<br>「頼る」「適度なスキンシップ」が効果的。<br><br>さらに「女であること」「神秘性を保つ」も<br>意識してみてください。' },
+    // 第1章⑪愛していると感じるとき 本文
+    { sel: '#s-ai .card-body p', html: '男性は「君の笑顔を守る」<br>「積み重ねた時間」に愛情を感じます。<br><br>あなたが笑顔でいるほど、<br>共に過ごした時間が長いほど、彼は<br>「ずっと一緒にいたい」と感じるようです。' },
+    // 第1章⑪ポイント
+    { sel: '#s-ai .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>あなたが自分自身を楽しませることが、<br>彼との関係をより深めることに繋がります。' },
+    // 第1章⑫かけた分だけ 本文
+    { sel: '#s-cost .card-body p', html: '男性はギャンブラーの気質を持ちます。<br>お金・時間・労力をかけた相手は、<br>簡単に手放せなくなるのです。<br><br>あなたが尽くすのではなく、<br>彼にたくさん<br>『かけてもらう』ことが重要です。' },
+    // 第1章⑫かけた分だけ ポイント
+    { sel: '#s-cost .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>彼が自分の力であなたを<br>「笑顔にできた・喜ばせられた」体験を<br>たくさん積ませてあげましょう。<br><br>それに神秘性が加われば、<br>彼は一生あなたを追い続けます。' },
+    // 第2章 頼られたい 本文
+    { sel: '#ch2-yorare .card-body p', html: '男性は役に立ちたい気持ちが強いです。<br>ただ「利用される」のは嫌いです。<br><br>プライドを傷つけず上手に頼り、<br>自尊心を高めることができれば、<br>彼は喜んで尽くしてくれます。' },
+    // 第2章 頼られたい アドバイス
+    { sel: '#ch2-yorare .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>頼みごとを叶えてもらったら<br>「やってもらって当たり前」の態度はNG。<br><br>【笑顔・オーバーリアクション・感謝】を<br>セットで返しましょう。' },
+    // 第2章 感謝・褒め p1
+    { sel: '#ch2-kansha .card-body p:first-child', html: '男性は「ありがとう」を<br>たくさん言われたいです。<br>感謝されると自信がつき、<br>どんどん成長します。<br><br>また、褒められたい・尊敬されたい欲も<br>強い傾向があります。' },
+    // 第2章 感謝・褒め p2
+    { sel: '#ch2-kansha .card-body p:nth-child(2)', html: '褒め言葉を伝えるときは上から<br>目線にならないよう注意。<br><br>「〇〇な所、すごいと思う」<br>「〇〇できるところが尊敬できる」と<br>具体的に伝えると伝わりやすいです。' },
+    // 第2章 感謝・褒め アドバイス
+    { sel: '#ch2-kansha .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>最初はそっけない反応をされても、<br>繰り返すうちにお互いが自然に<br>褒め合える関係になっていきます。<br>めげずに続けてください。' },
+    // 第2章 愛されたい 本文
+    { sel: '#ch2-ai .card-body p', html: '男性にとって「愛されている」とは、<br>尽くされることではなく<br><br>「信頼・理解・承認」されることです。<br><br>悩んでいるとき、女性は「相談して」と<br>声をかけたくなりますが、男性は<br>「そっとしておいてほしい」と感じます。' },
+    // 第2章 愛されたい ポイント
+    { sel: '#ch2-ai .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>「きっと自分で解決できる」と<br>信じて見守る<br><br>それが男性にとっての<br>「愛されている実感」に繋がります。<br><br>普段通りに接しながら、<br>「話せる時に話してね」という<br>距離感でいましょう。' },
+    // 第2章 揺れるもの 本文
+    { sel: '#ch2-yure .card-body p', html: '男性は本能的に<br>「揺れるもの」に惹かれます。<br><br>スカート・長い髪・揺れるイヤリング<br><br>これらを身に付けている女性を見ると<br>「女性だ」と強く意識します。' },
+    // 第2章 揺れるもの アドバイス
+    { sel: '#ch2-yure .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>久しぶりにスカートを履いて<br>メイクをしただけで、<br><br>普段無関心な夫が<br>「どこ行くの？」と聞いてきた<br><br>という実例があります。<br>効果は思った以上に大きいです。' },
+    // 第2章 追いたい 本文
+    { sel: '#ch2-oi .card-body p', html: '男性は狩人の本能を持ちます。<br><br>追いかけることに喜びを感じ、<br>女性を喜ばせることが<br>男性の幸せでもあります。<br><br>尽くした先に笑顔で<br>「ありがとう」があるから、<br>また尽くそうとします。' },
+    // 第2章 追いたい ポイント
+    { sel: '#ch2-oi .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>まず「あなた自身が何をすると幸せか」を<br>明確にしてください。<br><br>求めているものを自分が分かれば、<br>彼もあなたを幸せにしやすくなります。<br><br>自分を充実させることが、<br>結果的に「追われる女性」への近道です。' },
+    // 第3章 仕事 本文
+    { sel: '#ch3-shigoto .card-body p', html: '男性が仕事を優先するのは、<br>「仕事で成功すること<br>＝家族を幸せにすること」<br>という信念があるからです。<br><br>それを口に出さないため、<br>すれ違いが生じることも多いです。' },
+    // 第3章 仕事 アドバイス
+    { sel: '#ch3-shigoto .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>なぜ夫が仕事を優先するのか、<br>その背景を少し想像してみてください。<br>心のすれ違いを埋められるかもしれません。' },
+    // 第3章 プライド 本文
+    { sel: '#ch3-pride .card-body p', html: '男性は世間からの信用・地位・名誉を<br>大切にします。<br>これは「家族を幸せにしたい」という動機と<br>深く結びついています。<br>プライドが高く、心が折れると<br>閉じこもってしまいます。' },
+    // 第3章 プライド ポイント
+    { sel: '#ch3-pride .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>パートナーとして最も身近な存在だからこそ<br>「認めてほしい・褒めてほしい」<br>という気持ちが強いです。<br><br>彼のプライドの地雷<br>（触れてはいけない部分）を<br>把握しておきましょう。' },
+    // 第4章 シングルタスク 本文
+    { sel: '#ch4-single .card-body p', html: '女性はマルチタスクが得意ですが、<br>男性は一度に1つのことしかできません。<br>洗濯しながら掃除機をかけるといった<br>同時進行が苦手です。' },
+    // 第4章 シングルタスク アドバイス
+    { sel: '#ch4-single .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>メモに時間と段取りを細かく書いて渡すなど<br>具体的な指示をすると動きやすくなります。' },
+    // 第4章 小さな変化 本文
+    { sel: '#ch4-change .card-body p', html: '前髪を切っても、少し痩せても、<br>気づきません。<br><br>あなたが傷ついても、嬉しくても、<br>小さなリアクションでは伝わりません。<br><br>はっきり言葉にするか、<br>大きなリアクションで表現しましょう。' },
+    // 第4章 小さな変化 アドバイス
+    { sel: '#ch4-change .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>もし気づいてくれたら<br>「気づいてくれたの！嬉しい」と伝えて。<br><br>次も気づこうとしてくれます。<br>逆に、間違えて気づいた時に<br>冷たい反応は禁物です。' },
+    // 第4章 遠まわし 本文
+    { sel: '#ch4-mawashi .card-body p', html: '「食器洗っておいて」と言っても<br>鍋は洗わない。<br><br>「うまく断って」と言ったら<br>そのまま正直に断る。<br><br>男性は具体的に言われないと動けません。' },
+    // 第4章 遠まわし ポイント
+    { sel: '#ch4-mawashi .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>解決策はシンプル。<br>「はっきりと、具体的に伝える」こと。<br>遠まわしな表現は諦めましょう。' },
+    // 第4章 LINE 本文
+    { sel: '#ch4-line .card-body p', html: '連絡無精で、仕事が忙しいと<br>他のことに頭が回りません。<br><br>怒られるのが怖くて連絡できないまま<br>時間が過ぎてしまうことも。' },
+    // 第4章 LINE アドバイス
+    { sel: '#ch4-line .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>「連絡ないけど大丈夫？先に食べてるよ」と<br>気遣いながら自分の時間を取り戻しましょう。<br><br>「何時までに連絡なければ食事は用意しない」<br>などルールを決めておくのも手です。' },
+    // 第4章 感情表現 p1
+    { sel: '#ch4-kanjo .card-body p:first-child', html: '自分の気持ちを言葉にすることが苦手です。<br>「どこが好き？」と聞かれても<br>言葉が出てこないことがあります。<br>褒めることも不慣れな人が多いです。' },
+    // 第4章 感情表現 p2
+    { sel: '#ch4-kanjo .card-body p:nth-child(2)', html: 'また、男性が最も辞めてほしいと思うことは<br>「ヒステリックになること」です。<br>女性の怒りは男性にとって<br>10倍の威力に感じられます。' },
+    // 第4章 感情表現 アドバイス
+    { sel: '#ch4-kanjo .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>イライラしたら6秒深呼吸を。<br>感情的に怒ることに<br>良いことは一つもありません。<br><br>感情的ではなく、理路整然と伝えることを<br>意識してみてください。' },
+    // 第5章 話を聴いてもらうには 本文
+    { sel: '#ch5-kiku .card-body p', html: '男性は長い話が苦手です。<br><br>①何を伝えたいのかを明確にする<br>②できるだけ簡潔にまとめる<br>③「聞いてほしいだけ」<br>　「アドバイスが欲しい」など<br>　聞き方を先に伝える<br>④結論から話す<br><br>この4点を意識するだけで格段に<br>聞いてもらいやすくなります。' },
+    // 第5章 話を聴いてもらうには アドバイス
+    { sel: '#ch5-kiku .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>「5分だけ時間がほしい、<br>　〇〇の件について相談したい」<br>と切り出すだけで男性は安心します。<br><br>「何の話か・どれくらい時間がかかるか・<br>　何を求められているか」が分かれば、<br>すんなり聞いてくれることがほとんどです。' },
+    // 第5章 イライラ 本文
+    { sel: '#ch5-iraira .card-body p', html: '男性をイライラさせる相談のパターン：<br><br>①すでに自分の答えが決まっていて<br>　背中を押してほしいだけ<br>②説明が長い<br>③要点が掴めない<br>④結局どうしてほしいのか分からない<br><br>これらを意識して避けるだけで、<br>コミュニケーションがスムーズになります。' },
+    // 第5章 悩んでいる時 本文
+    { sel: '#ch5-nayami .card-body p', html: '男性が落ち込んでいるとき、<br>心配して「相談して」と<br>声をかけるのは逆効果です。<br><br>男性は一人で解決しようとします。<br>放っておきましょう。' },
+    // 第5章 悩んでいる時 ポイント
+    { sel: '#ch5-nayami .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>「きっと大丈夫、あなたなら解決できる。<br>私はちょっと出てきますね」<br><br>このスタンスでいることが、<br>男性にとって「信頼されている」と<br>感じられる愛情表現です。' },
+    // 第5章 嫌われた 本文
+    { sel: '#ch5-kirai .card-body p', html: '気のせいです。<br>男性は感情を表現するのが苦手なだけで、<br>仕事が忙しかったり<br>考え事があるだけのことがほとんどです。<br><br>「嫌いになった？」と聞くのは禁物。<br>かえって嫌いになる理由を<br>考えさせてしまうキッカケになることも。' },
+    // 第5章 嫌われた アドバイス
+    { sel: '#ch5-kirai .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>「私は愛されている」「愛されて当たり前」<br>と毎日心の中で唱えてみてください。<br><br>彼の態度に一喜一憂しなくなると、<br>関係も安定します。' },
+    // 第5章 倦怠期 本文
+    { sel: '#ch5-kentai .card-body p', html: '倦怠期の原因はマンネリです。<br>解消するには<br><br>「神秘的な女性であること」が鍵。<br><br>自分の時間を充実させ、<br>夫の知らないコミュニティを持ち、<br>その報告をあえて積極的にしないこと。' },
+    // 第5章 倦怠期 アドバイス
+    { sel: '#ch5-kentai .tip-box', html: '<span style="display:block;font-size:11px;font-weight:700;letter-spacing:0.1em;margin-bottom:6px;color:var(--gold);">💡 実践アドバイス</span>スカートを履いてオシャレして<br>出かけるだけで、<br><br>夫は「誰と会うの？」と<br>気が気でなくなります。<br><br>あなたと彼の間に新たな刺激が生まれます。' },
+    // 第5章 信頼度 本文
+    { sel: '#ch5-trust .card-body p', html: '嬉しくないのに「嬉しい」<br>美味しくないのに「美味しい」と<br>言い続けると、<br><br>相手はあなたの本心が見えなくなります。<br>本心を語ることが、信頼の土台です。' },
+    // 第5章 信頼度 ポイント
+    { sel: '#ch5-trust .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>揉めても、傷つけても、<br>本心を伝える勇気を持ちましょう。<br><br>手紙でも、<br>「今まで言えなかったんだけど…」<br>からでも大丈夫です。<br><br>本心を受け止め合える関係こそ、<br>真の信頼関係です。' },
+    // 第5章 アゲマン 本文
+    { sel: '#ch5-ageman .card-body p', html: 'アゲマンとは、一緒にいることで<br>男性の運気・仕事・人生を<br>引き上げる女性のこと。' },
+    // 第5章 アゲマン ポイント
+    { sel: '#ch5-ageman .point-box', html: '<span style="display:block;font-family:\'Noto Serif JP\',serif;font-size:11px;letter-spacing:0.15em;margin-bottom:8px;color:var(--rose);font-weight:700;">✦ ポイント</span>①彼を認め、褒め、尊敬できる部分を伝える<br>②尽くしてもらい、笑顔で感謝を伝える<br>③神秘的な女性であり続ける<br><br>ただし、あなた自身も<br>アゲマンになる必要があります。<br><br>まず自分が満たされていなければ、<br>相手を満たすことはできません。<br>何よりも大切なのは、あなた自身です。' },
+    // おわりに
+    { sel: '.final-section p', html: 'この取扱説明書は、全てが<br>正しいわけではありません。<br>個人差があります。<br><br>ぜひ参考にしながら、<br>あなた自身のパートナーの<br>『取扱説明書』を作ってみてください。<br><br><br>男性は女性がいないと<br>力強く生きていけませんが、<br><br>女性もまた男性にしか埋められない<br>心の穴があります。<br>お互いがお互いを必要としています。<br><br><br><strong>すべてのパートナーたちが、<br>幸せでありますように。</strong>' },
+  ];
+
+  function applySpTexts() {
+    if (window.innerWidth <= 768) {
+      spTexts.forEach(({ sel, html }) => {
+        const el = document.querySelector(sel);
+        if (el) el.innerHTML = html;
+      });
+    }
+  }
+
+  // 初回実行
+  applySpTexts();
+
+  // リサイズ時にも実行
+  window.addEventListener('resize', applySpTexts);
 </script>
 </body>
 </html>
