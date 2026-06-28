@@ -1,0 +1,1278 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>男の取扱説明書</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #9B4A5F;
+    --rose-light: #C07A90;
+    --rose-pale: #F5E0E6;
+    --cream: #FDF8F3;
+    --cream-deep: #F5EDE4;
+    --warm-gray: #6B6460;
+    --dark: #2E2320;
+    --gold: #B89060;
+    --white: #FFFFFF;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    font-weight: 400;
+    background: var(--cream);
+    color: var(--dark);
+    line-height: 1.85;
+    font-size: 15px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--rose);
+    color: var(--white);
+    text-align: center;
+    padding: 60px 24px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 70% 30%, rgba(180,100,120,0.4) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .header-eyebrow {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    opacity: 0.7;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  header h1 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(2rem, 6vw, 3.2rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    line-height: 1.3;
+  }
+  header h1 span {
+    display: block;
+    font-size: 0.5em;
+    font-weight: 400;
+    opacity: 0.8;
+    letter-spacing: 0.15em;
+    margin-top: 10px;
+  }
+  .header-divider {
+    width: 40px;
+    height: 2px;
+    background: rgba(255,255,255,0.4);
+    margin: 24px auto;
+  }
+  .header-note {
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 13px;
+    opacity: 0.85;
+    line-height: 1.8;
+    background: rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 16px 20px;
+    border-left: 3px solid rgba(255,255,255,0.4);
+  }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: flex;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+    gap: 48px;
+    align-items: flex-start;
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 24px;
+  }
+  .sidebar-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    color: var(--rose);
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rose-pale);
+  }
+  .sidebar nav a {
+    display: block;
+    font-size: 13px;
+    color: var(--warm-gray);
+    text-decoration: none;
+    padding: 7px 0;
+    border-bottom: 1px solid var(--cream-deep);
+    transition: color 0.2s, padding-left 0.2s;
+  }
+  .sidebar nav a:hover { color: var(--rose); padding-left: 6px; }
+  .sidebar-chapter {
+    margin-top: 6px;
+  }
+  .sidebar-chapter-btn {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--rose-light);
+    font-weight: 600;
+    padding: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--rose-pale);
+  }
+  .sidebar-chapter-btn:hover { color: var(--rose); }
+  .sidebar-chapter-btn .arrow {
+    font-size: 10px;
+    transition: transform 0.25s;
+    color: var(--rose-light);
+  }
+  .sidebar-chapter.open .sidebar-chapter-btn .arrow {
+    transform: rotate(90deg);
+  }
+  .sidebar-chapter-items {
+    display: none;
+    padding-left: 4px;
+  }
+  .sidebar-chapter.open .sidebar-chapter-items {
+    display: block;
+  }
+
+  /* ── MAIN ── */
+  main { flex: 1; min-width: 0; }
+
+  /* ── HOW TO USE ── */
+  .how-to-use {
+    background: var(--white);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 48px;
+    border-left: 4px solid var(--gold);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+  }
+  .how-to-use h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 14px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+  .usage-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .usage-step {
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+  }
+  .usage-step .num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 24px;
+    color: var(--rose);
+    font-weight: 700;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .usage-step p { font-size: 13px; color: var(--warm-gray); }
+  .usage-note {
+    font-size: 13px;
+    color: var(--warm-gray);
+    line-height: 1.9;
+  }
+  .usage-note strong { color: var(--rose); }
+
+  /* ── CHAPTER ── */
+  .chapter {
+    margin-bottom: 56px;
+  }
+  .chapter-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+  .chapter-num {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--white);
+    background: var(--rose);
+    padding: 4px 12px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .chapter-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--dark);
+    letter-spacing: 0.05em;
+  }
+  .chapter-title-line {
+    flex: 1;
+    height: 1px;
+    background: var(--rose-pale);
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    box-shadow: 0 1px 8px rgba(0,0,0,0.05);
+    border: 1px solid rgba(155,74,95,0.08);
+  }
+  .card-header {
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    padding: 22px 28px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    transition: background 0.2s;
+  }
+  .card-header:hover { background: var(--cream); }
+  .card-header-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--rose-pale);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+  .card-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dark);
+    letter-spacing: 0.03em;
+  }
+  .card-toggle {
+    font-size: 20px;
+    color: var(--rose-light);
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    font-weight: 300;
+  }
+  .card.open .card-toggle { transform: rotate(45deg); }
+
+  .card-body {
+    display: none;
+    padding: 0 28px 28px;
+    border-top: 1px solid var(--rose-pale);
+    animation: fadeIn 0.25s ease;
+  }
+  .card.open .card-body { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .card-body p {
+    color: var(--warm-gray);
+    font-size: 14px;
+    line-height: 2;
+    margin-top: 20px;
+  }
+  .card-body p + p { margin-top: 12px; }
+
+  /* point boxes */
+  .point-box {
+    background: var(--rose-pale);
+    border-radius: 8px;
+    padding: 16px 20px;
+    margin-top: 20px;
+    font-size: 13px;
+    color: var(--rose);
+    font-weight: 500;
+    line-height: 1.8;
+  }
+  .point-box::before {
+    content: '✦ ポイント';
+    display: block;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    margin-bottom: 8px;
+    color: var(--rose);
+    font-weight: 700;
+  }
+
+  .tip-box {
+    background: #FFF8EC;
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #7A6340;
+    line-height: 1.8;
+  }
+  .tip-box::before {
+    content: '💡 実践アドバイス';
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 6px;
+    color: var(--gold);
+  }
+
+  /* ── FINAL ── */
+  .final-section {
+    background: var(--rose);
+    border-radius: 12px;
+    padding: 40px 36px;
+    text-align: center;
+    color: var(--white);
+    margin-top: 24px;
+  }
+  .final-section h2 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+  }
+  .final-section p {
+    font-size: 14px;
+    line-height: 2;
+    opacity: 0.9;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    color: var(--rose-light);
+    border-top: 1px solid var(--rose-pale);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .layout { flex-direction: column; padding: 24px 16px; gap: 24px; }
+    .sidebar { width: 100%; position: static; }
+    .sidebar nav { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+    .sidebar nav a.chapter-link { grid-column: 1 / -1; }
+    .card-header { padding: 18px 20px; }
+    .card-body { padding: 0 20px 20px; }
+    .usage-steps { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <p class="header-eyebrow">relationship guide</p>
+  <h1>男の取扱説明書
+    <span>彼も・夫も・息子も、きっと同じ</span>
+  </h1>
+  <div class="header-divider"></div>
+  <p class="header-note">
+    この取扱説明書は、身近な大切な男性との関係に困ったときのためのものです。<br>
+    強力なノウハウが詰まっているため、むやみに使わず、<br>
+    本当に必要なときにお役立てください。
+  </p>
+</header>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <p class="sidebar-title">CONTENTS</p>
+    <nav>
+      <a href="#how-to" style="display:block;font-size:13px;color:var(--rose);text-decoration:none;padding:7px 0;border-bottom:1px solid var(--cream-deep);font-family:'Noto Serif JP',serif;font-size:11px;letter-spacing:0.1em;font-weight:600;">▸ 活用方法</a>
+
+      <!-- 第１章 -->
+      <div class="sidebar-chapter open">
+        <button class="sidebar-chapter-btn" onclick="toggleSidebar(this)">
+          第１章　基本性質<span class="arrow">▶</span>
+        </button>
+        <div class="sidebar-chapter-items">
+          <a href="#s-kodom">子供の頃から変わらない</a>
+          <a href="#s-jishin">自分に自信がない</a>
+          <a href="#s-omotta">思ったことは言う</a>
+          <a href="#s-ketsuron">過程より結論</a>
+          <a href="#s-partner">パートナーへの期待</a>
+          <a href="#s-line">既読スルーは基本</a>
+          <a href="#s-doya">やったことはドヤ顔</a>
+          <a href="#s-tsuri">釣った魚に餌はやらない</a>
+          <a href="#s-sasoi">誘われ方・頼まれ方</a>
+          <a href="#s-uwaki">常に浮気したい</a>
+          <a href="#s-ai">愛していると感じるとき</a>
+          <a href="#s-cost">かけた分だけ手放せない</a>
+        </div>
+      </div>
+
+      <!-- 第２章 -->
+      <div class="sidebar-chapter">
+        <button class="sidebar-chapter-btn" onclick="toggleSidebar(this)">
+          第２章　好きなこと<span class="arrow">▶</span>
+        </button>
+        <div class="sidebar-chapter-items">
+          <a href="#ch2-yorare">頼られたい</a>
+          <a href="#ch2-kansha">感謝・褒め・尊敬されたい</a>
+          <a href="#ch2-ai">愛されたい（放置が好き）</a>
+          <a href="#ch2-yure">揺れるもの・女性らしさ</a>
+          <a href="#ch2-oi">追いたい・尽くしたい</a>
+        </div>
+      </div>
+
+      <!-- 第３章 -->
+      <div class="sidebar-chapter">
+        <button class="sidebar-chapter-btn" onclick="toggleSidebar(this)">
+          第３章　大切なもの<span class="arrow">▶</span>
+        </button>
+        <div class="sidebar-chapter-items">
+          <a href="#ch3-shigoto">恋愛より仕事が優先</a>
+          <a href="#ch3-pride">世間体・地位・プライド</a>
+        </div>
+      </div>
+
+      <!-- 第４章 -->
+      <div class="sidebar-chapter">
+        <button class="sidebar-chapter-btn" onclick="toggleSidebar(this)">
+          第４章　苦手なこと<span class="arrow">▶</span>
+        </button>
+        <div class="sidebar-chapter-items">
+          <a href="#ch4-single">シングルタスク</a>
+          <a href="#ch4-change">小さな変化に気づかない</a>
+          <a href="#ch4-mawashi">遠まわしに言われても分からない</a>
+          <a href="#ch4-line">LINEや連絡が苦手</a>
+          <a href="#ch4-kanjo">感情表現が苦手</a>
+        </div>
+      </div>
+
+      <!-- 第５章 -->
+      <div class="sidebar-chapter">
+        <button class="sidebar-chapter-btn" onclick="toggleSidebar(this)">
+          第５章　こんな時は？<span class="arrow">▶</span>
+        </button>
+        <div class="sidebar-chapter-items">
+          <a href="#ch5-kiku">話を聴いてもらうには</a>
+          <a href="#ch5-iraira">相談するとイライラされる</a>
+          <a href="#ch5-nayami">悩んでいる時の対処</a>
+          <a href="#ch5-kirai">嫌われたと感じたら</a>
+          <a href="#ch5-kentai">倦怠期の乗り越え方</a>
+          <a href="#ch5-trust">信頼度を高めるために</a>
+          <a href="#ch5-ageman">アゲマンになるために</a>
+        </div>
+      </div>
+
+    </nav>
+  </aside>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- 活用方法 -->
+    <section class="how-to-use" id="how-to">
+      <h2>▸ 活用方法</h2>
+      <div class="usage-steps">
+        <div class="usage-step"><span class="num">01</span><p>まず全体を通して読む</p></div>
+        <div class="usage-step"><span class="num">02</span><p>気になるページを深読み</p></div>
+        <div class="usage-step"><span class="num">03</span><p>繰り返し読み返す</p></div>
+        <div class="usage-step"><span class="num">04</span><p>自分用の説明書を自作する</p></div>
+      </div>
+      <p class="usage-note">
+        男性はいくつになっても<strong>基本的な性質は変わりません</strong>。<br>
+        彼・夫・息子のどの関係にも応用できます。<br><br>
+        男性は女性とはまったく異なる生き物です。<br>
+        「別の生き物だ」と認めて接することが、良好な関係の第一歩です。<br><br>
+        <em style="font-size:12px; opacity:0.7">※ 個人差があります。すべて好意的に受け取ってください。</em>
+      </p>
+    </section>
+
+    <!-- ───── 第１章 ───── -->
+    <section class="chapter" id="ch1">
+      <div class="chapter-header">
+        <span class="chapter-num">第１章</span>
+        <h2 class="chapter-title">男性の基本性質</h2>
+        <div class="chapter-title-line"></div>
+      </div>
+
+      <!-- 1 -->
+      <div class="card" id="s-kodom">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">🧒</div>
+            <span class="card-label">子供の頃から変わらない</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性の根本は、子供の頃からほとんど変わりません。<br>
+          中身は中学生くらいで止まっていると思ってください。<br>
+          <br>
+          漫画やアニメに熱くなり、下ネタが大好きで、<br>
+          女性にモテたい気持ちも健在。<br>
+          変なところでカッコをつけますし、<br>
+          自分の好きな話題になると延々と喋り続けます。<br>
+          <br>
+          一方、興味のない話はほとんど聞きません。</p>
+          <div class="point-box">男性に「大人らしさ」を期待して疲れたなら、<br>
+          一旦諦めてみましょう。<br>
+          <br>
+          男性は自然には大人になれません。<br>
+          近くにいる女性が、上手に育てていくほかないのです。</div>
+        </div>
+      </div>
+
+      <!-- 2 -->
+      <div class="card" id="s-jishin">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">😟</div>
+            <span class="card-label">自分に自信がない</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は常に不安を抱えています。<br>
+          傍で「いつも頑張ってるね」「あなたなら大丈夫」と<br>
+          言ってくれる存在を必要としています。<br>
+          <br>
+          ただ、それを素直に表現できません。<br>
+          強がって一人で抱え込みます。<br>
+          そもそも、不安な気持ちを周りにどう伝えればいいか<br>
+          分からないのです。</p>
+          <p>プライドが高いため、「頑張ってるね」と声をかけると<br>
+          逆に怒ってしまう人もいます。<br>
+          照れ隠しでキツい言葉を返してくることもあるので、<br>
+          真意を読み解く練習をしてみてください。</p>
+          <div class="tip-box">大切なのは、彼の心情を想像して<br>
+          さまざまなアプローチを試すこと。<br>
+          <br>
+          あなた自身の心が安定しているときにだけ、<br>
+          試してみれば十分です。</div>
+        </div>
+      </div>
+
+      <!-- 3 -->
+      <div class="card" id="s-omotta">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">💬</div>
+            <span class="card-label">思ったことをズバッと言う</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は指摘を「その部分への改善提案」として受け止めます。<br>
+          女性が「私がダメなんだ」と感情的に受け取りやすいのとは対照的です。<br>
+          <br>
+          そのため男性も、相手に対してズバッと言ってしまいます。<br>
+          「髪型が似合わない」「太った？」といった失言は、<br>
+          悪意ではなく、この特性から生まれます。</p>
+          <div class="tip-box">嫌な気持ちになったときは感情的に怒らず、<br>
+          「そう言われると嫌だ」とはっきり伝えることが大切です。<br>
+          言わなければ、男性には伝わりません。</div>
+        </div>
+      </div>
+
+      <!-- 4 -->
+      <div class="card" id="s-ketsuron">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">🎯</div>
+            <span class="card-label">過程より結論が先</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は話を聞くのが苦手で、結論を先に知りたがります。<br>
+          <br>
+          女性が「何時に起きて、何を食べて…」と過程を丁寧に話す一方、<br>
+          男性は「で、何が言いたいの？」とすぐにまとめようとします。</p>
+          <div class="tip-box">
+            男性に相談したいとき・話を聞いてほしいときは、<br>
+            できるだけ短く、結論から話しましょう。<br>
+            <br>
+            「聞いてほしいだけなんだけど」<br>
+            「アドバイスが欲しいんだけど」と<br>
+            最初に伝えるのが効果的です。
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 -->
+      <div class="card" id="s-partner">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">👗</div>
+            <span class="card-label">パートナーに求めること</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性がパートナーに求めるのは「女性であること」。<br>
+          女性は、自分が思っている以上に<br>
+          男性に生きるパワーを与えています。<br>
+          <br>
+          そのパワーを持続させるには、<br>
+          『スカートを履くこと』『揺れるイヤリングをつけること』<br>
+          『神秘性を保つこと』が有効です。</p>
+          <div class="point-box">「神秘性を保つ」とは、<br>
+          <br>
+          ・全てをさらけ出さないこと<br>
+          ・着替えやメイク姿をパートナーに見せない<br>
+          ・スケジュールを全部話さない<br>
+          <br>
+          あなたの知られていない部分を必ず残しておきましょう。</div>
+        </div>
+      </div>
+
+      <!-- 6 -->
+      <div class="card" id="s-line">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">📱</div>
+            <span class="card-label">既読スルーは基本</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は連絡が苦手です。<br>
+          <br>
+          LINEをコミュニケーションツールではなく<br>
+          「単なる連絡手段」として認識している人が多く、<br>
+          既読スルーは珍しくありません。<br>
+          <br>
+          仕事が立て込んでいると、<br>
+          返信する余裕が本当にないことも多いです。</p>
+          <div class="tip-box">
+            既読スルーされたら「今忙しいんだな」と思い、<br>
+            別のことに集中しましょう。<br>
+            <br>
+            追いLINEはNG。<br>
+            <br>
+            返事しやすいよう、「YES/NO」で答えられる<br>
+            メッセージにするひと工夫も有効です。
+          </div>
+        </div>
+      </div>
+
+      <!-- 7 -->
+      <div class="card" id="s-doya">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">😤</div>
+            <span class="card-label">やったことはドヤ顔で報告</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>女性にとって「やって当たり前」のことでも、<br>
+          男性は「褒めて！」という顔をします。<br>
+          <br>
+          食器を洗っただけでドヤ顔をされると腹が立ちますが、<br>
+          ここは戦略的に活用しましょう。<br>
+          <br>
+          褒めれば次もやってくれるのです。</p>
+          <div class="point-box">
+            「え、洗ってくれたの？ありがとう、助かる！」<br>
+            と笑顔で伝えてみてください。<br><br>
+            ポイントは<br>
+            【笑顔】【オーバーなほど喜ぶ】【褒める】の3つ。<br><br>
+            これは「アゲマン」になるための重要なコツでもあります。
+          </div>
+        </div>
+      </div>
+
+      <!-- 8 -->
+      <div class="card" id="s-tsuri">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">🎣</div>
+            <span class="card-label">釣った魚に餌はやらない</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性の本能として、既に手に入れた存在には興味が薄れ、<br>
+          新しい獲物を追いたくなります。<br>
+          <br>
+          これは本能なので変えられません。<br>
+          ただし、うまく「追われる存在であり続ける」ことで対処できます。</p>
+          <p>尽くすのをやめ、自分の時間を充実させ、神秘性を保つ。<br>
+          <br>
+          自分がウキウキと生活しているだけで、<br>
+          彼は「手放したくない」と感じるようになります。</p>
+          <div class="tip-box">女性であることを全力で楽しんでください。<br>
+          オシャレをして、ウキウキと過ごすだけで十分です。</div>
+        </div>
+      </div>
+
+      <!-- 9 -->
+      <div class="card" id="s-sasoi">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">🎡</div>
+            <span class="card-label">誘い方・頼み方のコツ</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>「遊園地行こう？」と誘うと男性は受け身になります。<br>
+          <br>
+          「遊園地、連れて行ってほしいな」と言い換えるだけで、<br>
+          彼が主導権を持って連れて行く流れになります。<br>
+          男性は主導権を握ることが好きなのです。</p>
+          <div class="point-box">さらに大切なのは、連れて行ってもらった後の<br>
+          【笑顔】と【オーバーなほどの感謝】。<br>
+          これがあるから、次回も快く動いてくれます。</div>
+        </div>
+      </div>
+
+      <!-- 10 -->
+      <div class="card" id="s-uwaki">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">👀</div>
+            <span class="card-label">常に浮気したい（本能として）</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は女性が好きで、無意識に目で追ってしまいます。<br>
+          これは本能です。<br>
+          <br>
+          浮気の背景には<br>
+          「自信が持てない」「存在意義が見出せない」<br>
+          「妻が構ってくれない」<br>
+          <br>
+          といった理由があることも多いです。</p>
+          <div class="tip-box">防ぐには<br>
+          「夫を認め、褒め、感謝を伝える」「頼る」「適度なスキンシップ」<br>
+          が効果的。<br>
+          <br>
+          さらに「女であること」「神秘性を保つ」も<br>
+          意識してみてください。</div>
+        </div>
+      </div>
+
+      <!-- 11 -->
+      <div class="card" id="s-ai">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">💖</div>
+            <span class="card-label">パートナーを愛していると感じるとき</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は「君の笑顔を守る」「積み重ねた時間」に愛情を感じます。<br>
+          <br>
+          あなたが笑顔でいるほど、共に過ごした時間が長いほど、<br>
+          彼は「ずっと一緒にいたい」と感じるようです。</p>
+          <div class="point-box">あなたが自分自身を楽しませることが、<br>
+          彼との関係をより深めることに繋がります。</div>
+        </div>
+      </div>
+
+      <!-- 12 -->
+      <div class="card" id="s-cost">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left">
+            <div class="card-icon">🎰</div>
+            <span class="card-label">かけた分だけ手放せない</span>
+          </div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性はギャンブラーの気質を持ちます。<br>
+          お金・時間・労力をかけた相手は、<br>
+          簡単に手放せなくなるのです。<br>
+          <br>
+          あなたが尽くすのではなく、<br>
+          彼にたくさん「かけてもらう」ことが重要です。</p>
+          <div class="point-box">彼が自分の力であなたを<br>
+          「笑顔にできた・喜ばせられた」体験を<br>
+          たくさん積ませてあげましょう。<br>
+          <br>
+          それに神秘性が加われば、<br>
+          彼は一生あなたを追い続けます。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── 第２章 ───── -->
+    <section class="chapter" id="ch2">
+      <div class="chapter-header">
+        <span class="chapter-num">第２章</span>
+        <h2 class="chapter-title">男性が好きなこと</h2>
+        <div class="chapter-title-line"></div>
+      </div>
+
+      <div class="card" id="ch2-yorare">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🙏</div><span class="card-label">頼られたい</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は役に立ちたい気持ちが強いです。<br>
+          ただ「利用される」のは嫌いです。<br>
+          <br>
+          プライドを傷つけず上手に頼り、<br>
+          自尊心を高めることができれば、<br>
+          彼は喜んで尽くしてくれます。</p>
+          <div class="tip-box">頼みごとを叶えてもらったら<br>
+          「やってもらって当たり前」の態度はNG。<br>
+          <br>
+          【笑顔・オーバーリアクション・感謝】を<br>
+          セットで返しましょう。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch2-kansha">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🌟</div><span class="card-label">感謝・褒め・尊敬されたい</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は「ありがとう」をたくさん言われたいです。<br>
+          感謝されると自信がつき、どんどん成長します。<br>
+          また、褒められたい・尊敬されたい欲も強い傾向があります。</p>
+          <p>褒め言葉を伝えるときは上から目線にならないよう注意。<br>
+          「〇〇な所、すごいと思う」<br>
+          「〇〇できるところが尊敬できる」と<br>
+          具体的に伝えると伝わりやすいです。</p>
+          <div class="tip-box">最初はそっけない反応をされても、繰り返すうちに<br>
+          お互いが自然に褒め合える関係になっていきます。<br>
+          めげずに続けてください。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch2-ai">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">❤️</div><span class="card-label">愛されたい（でも「放置」が好き）</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性にとって「愛されている」とは、<br>
+          尽くされることではなく<br>
+          <br>
+          「信頼・理解・承認」されることです。<br>
+          <br>
+          悩んでいるとき、女性は「相談して」と声をかけたくなりますが、<br>
+          男性は「そっとしておいてほしい」と感じます。</p>
+          <div class="point-box">「きっと自分で解決できる」と信じて見守る——<br>
+          それが男性にとっての「愛されている実感」に繋がります。<br>
+          <br>
+          普段通りに接しながら、<br>
+          「話せる時に話してね」という距離感でいましょう。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch2-yure">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">💃</div><span class="card-label">揺れるもの・女性らしさが好き</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は本能的に「揺れるもの」に惹かれます。<br>
+          <br>
+          スカート・長い髪・揺れるイヤリング<br>
+          <br>
+          これらを身に付けている女性を見ると<br>
+          「女性だ」と強く意識します。</p>
+          <div class="tip-box">久しぶりにスカートを履いてメイクをしただけで、<br>
+          <br>
+          普段無関心な夫が「どこ行くの？」と聞いてきた<br>
+          <br>
+          という実例があります。<br>
+          効果は思った以上に大きいです。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch2-oi">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🏹</div><span class="card-label">追いたい・尽くしたい</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は狩人の本能を持ちます。<br>
+          <br>
+          追いかけることに喜びを感じ、<br>
+          女性を喜ばせることが男性の幸せでもあります。<br>
+          <br>
+          尽くした先に笑顔で「ありがとう」があるから、<br>
+          また尽くそうとします。</p>
+          <div class="point-box">まず「あなた自身が何をすると幸せか」を明確にしてください。<br>
+          <br>
+          求めているものを自分が分かれば、<br>
+          彼もあなたを幸せにしやすくなります。<br>
+          <br>
+          自分を充実させることが、<br>
+          結果的に「追われる女性」への近道です。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── 第３章 ───── -->
+    <section class="chapter" id="ch3">
+      <div class="chapter-header">
+        <span class="chapter-num">第３章</span>
+        <h2 class="chapter-title">男性にとって大切なもの</h2>
+        <div class="chapter-title-line"></div>
+      </div>
+
+      <div class="card" id="ch3-shigoto">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">💼</div><span class="card-label">恋愛・結婚より仕事が優先</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性が仕事を優先するのは、<br>
+          「仕事で成功すること＝家族を幸せにすること」<br>
+          という信念があるからです。<br>
+          <br>
+          それを口に出さないため、<br>
+          すれ違いが生じることも多いです。</p>
+          <div class="tip-box">なぜ夫が仕事を優先するのか、<br>
+          その背景を少し想像してみてください。<br>
+          心のすれ違いを埋められるかもしれません。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch3-pride">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🏆</div><span class="card-label">世間体・地位・名誉・プライド</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は世間からの信用・地位・名誉を大切にします。<br>
+          これは「家族を幸せにしたい」という動機と<br>
+          深く結びついています。<br>
+          プライドが高く、心が折れると閉じこもってしまいます。</p>
+          <div class="point-box">パートナーとして最も身近な存在だからこそ、<br>
+          「認めてほしい・褒めてほしい」という気持ちが強いです。<br>
+          彼のプライドの地雷<br>
+          （触れてはいけない部分）を把握しておきましょう。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── 第４章 ───── -->
+    <section class="chapter" id="ch4">
+      <div class="chapter-header">
+        <span class="chapter-num">第４章</span>
+        <h2 class="chapter-title">男性が苦手なこと</h2>
+        <div class="chapter-title-line"></div>
+      </div>
+
+      <div class="card" id="ch4-single">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🔂</div><span class="card-label">1つのことしかできない（シングルタスク）</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>女性はマルチタスクが得意ですが、<br>
+          男性は一度に1つのことしかできません。<br>
+          洗濯しながら掃除機をかけるといった<br>
+          同時進行が苦手です。</p>
+          <div class="tip-box">メモに時間と段取りを細かく書いて渡すなど、<br>
+          具体的な指示をすると動きやすくなります。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch4-change">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🔍</div><span class="card-label">小さな変化・リアクションに気づかない</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>前髪を切っても、少し痩せても、気づきません。<br>
+          あなたが傷ついても、嬉しくても、<br>
+          小さなリアクションでは伝わりません。<br>
+          はっきり言葉にするか、<br>
+          大きなリアクションで表現しましょう。</p>
+          <div class="tip-box">もし気づいてくれたら「気づいてくれたの！嬉しい」と伝えて。<br>
+          次も気づこうとしてくれます。<br>
+          逆に、間違えて気づいた時に冷たい反応は禁物です。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch4-mawashi">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🌀</div><span class="card-label">遠まわしに言われても分からない</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>「食器洗っておいて」と言っても鍋は洗わない。<br>
+          「うまく断って」と言ったらそのまま正直に断る。<br>
+          男性は具体的に言われないと動けません。</p>
+          <div class="point-box">解決策はシンプル。<br>
+          「はっきりと、具体的に伝える」こと。<br>
+          遠まわしな表現は諦めましょう。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch4-line">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">📵</div><span class="card-label">LINEや連絡が苦手</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>連絡無精で、仕事が忙しいと他のことに頭が回りません。<br>
+          怒られるのが怖くて連絡できないまま<br>
+          時間が過ぎてしまうことも。</p>
+          <div class="tip-box">「連絡ないけど大丈夫？先に食べてるよ」と<br>
+          気遣いながら自分の時間を取り戻しましょう。<br>
+          「何時までに連絡なければ食事は用意しない」など<br>
+          ルールを決めておくのも手です。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch4-kanjo">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">😑</div><span class="card-label">感情表現・褒めること・ヒステリックが苦手</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>自分の気持ちを言葉にすることが苦手です。<br>
+          「どこが好き？」と聞かれても<br>
+          言葉が出てこないことがあります。<br>
+          褒めることも不慣れな人が多いです。</p>
+          <p>また、男性が最も辞めてほしいと思うことは<br>
+          「ヒステリックになること」です。<br>
+          女性の怒りは男性にとって10倍の威力に感じられます。</p>
+          <div class="tip-box">イライラしたら6秒深呼吸を。<br>
+          感情的に怒ることに良いことは一つもありません。<br>
+          感情的ではなく、理路整然と伝えることを<br>
+          意識してみてください。</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───── 第５章 ───── -->
+    <section class="chapter" id="ch5">
+      <div class="chapter-header">
+        <span class="chapter-num">第５章</span>
+        <h2 class="chapter-title">こんな時はどうしたらいい？</h2>
+        <div class="chapter-title-line"></div>
+      </div>
+
+      <div class="card" id="ch5-kiku">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🗣️</div><span class="card-label">話を聴いてもらうには</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性は長い話が苦手です。<br>
+          ①何を伝えたいのかを明確にする<br>
+          ②できるだけ簡潔にまとめる<br>
+          ③「聞いてほしいだけ」「アドバイスが欲しい」など<br>
+          　聞き方を先に伝える<br>
+          ④結論から話す<br>
+          この4点を意識するだけで格段に聞いてもらいやすくなります。</p>
+          <div class="tip-box">「5分だけ時間がほしい、〇〇の件について相談したい」<br>
+          と切り出すだけで男性は安心します。<br>
+          「何の話か・どれくらい時間がかかるか・<br>
+          何を求められているか」が分かれば、<br>
+          すんなり聞いてくれることがほとんどです。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-iraira">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">😤</div><span class="card-label">相談するとイライラされる</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性をイライラさせる相談のパターン：<br>
+          ①すでに自分の答えが決まっていて背中を押してほしいだけ<br>
+          ②説明が長い<br>
+          ③要点が掴めない<br>
+          ④結局どうしてほしいのか分からない<br><br>
+          これらを意識して避けるだけで、<br>
+          コミュニケーションがスムーズになります。</p>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-nayami">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🚪</div><span class="card-label">悩んでいる時の男性への対処</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>男性が落ち込んでいるとき、<br>
+          心配して「相談して」と声をかけるのは逆効果です。<br>
+          男性は一人で解決しようとします。<br>
+          放っておきましょう。</p>
+          <div class="point-box">「きっと大丈夫、あなたなら解決できる。<br>
+          私はちょっと出てきますね」——<br>
+          このスタンスでいることが、<br>
+          男性にとって「信頼されている」と感じられる<br>
+          愛情表現です。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-kirai">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🧊</div><span class="card-label">彼に嫌われたと感じたら</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>気のせいです。<br>
+          男性は感情を表現するのが苦手なだけで、<br>
+          仕事が忙しかったり考え事があるだけのことがほとんどです。<br>
+          「嫌いになった？」と聞くのは禁物。<br>
+          かえって嫌いになる理由を考えさせてしまうことも。</p>
+          <div class="tip-box">「私は愛されている」「愛されて当たり前」と<br>
+          毎日心の中で唱えてみてください。<br>
+          彼の態度に一喜一憂しなくなると、<br>
+          関係も安定します。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-kentai">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🌸</div><span class="card-label">倦怠期の乗り越え方</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>倦怠期の原因はマンネリです。<br>
+          解消するには「神秘的な女性であること」が鍵。<br>
+          自分の時間を充実させ、<br>
+          夫の知らないコミュニティを持ち、<br>
+          その報告をあえて積極的にしないこと。</p>
+          <div class="tip-box">スカートを履いてオシャレして出かけるだけで、<br>
+          夫は「誰と会うの？」と気が気でなくなります。<br>
+          あなたと彼の間に新たな刺激が生まれます。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-trust">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">🤝</div><span class="card-label">信頼度を高めるために</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>嬉しくないのに「嬉しい」、<br>
+          美味しくないのに「美味しい」と言い続けると、<br>
+          相手はあなたの本心が見えなくなります。<br>
+          本心を語ることが、信頼の土台です。</p>
+          <div class="point-box">揉めても、傷つけても、本心を伝える勇気を持ちましょう。<br>
+          手紙でも、<br>
+          「今まで言えなかったんだけど…」からでも大丈夫です。<br>
+          本心を受け止め合える関係こそ、真の信頼関係です。</div>
+        </div>
+      </div>
+
+      <div class="card" id="ch5-ageman">
+        <button class="card-header" onclick="toggle(this)">
+          <div class="card-header-left"><div class="card-icon">✨</div><span class="card-label">アゲマンになるために</span></div>
+          <span class="card-toggle">+</span>
+        </button>
+        <div class="card-body">
+          <p>アゲマンとは、一緒にいることで<br>
+          男性の運気・仕事・人生を引き上げる女性のこと。</p>
+          <div class="point-box">
+            ①彼を認め、褒め、尊敬できる部分を伝える<br>
+            ②尽くしてもらい、笑顔で感謝を伝える<br>
+            ③神秘的な女性であり続ける<br><br>
+            ただし、あなた自身もアゲマンになる必要があります。<br>
+            まず自分が満たされていなければ、<br>
+            相手を満たすことはできません。<br>
+            何よりも大切なのは、あなた自身です。
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FINAL -->
+    <div class="final-section">
+      <h2>おわりに</h2>
+      <p>
+        この取扱説明書は、全てが正しいわけではありません。<br>
+        個人差があります。<br>
+        ぜひ参考にしながら、<br>
+        あなた自身のパートナーの取扱説明書を作ってみてください。<br><br>
+        男性は女性がいないと力強く生きていけませんが、<br>
+        女性もまた男性にしか埋められない心の穴があります。<br>
+        お互いがお互いを必要としています。<br><br>
+        <strong>すべてのパートナーたちが、幸せでありますように。</strong>
+      </p>
+    </div>
+
+  </main>
+</div>
+
+<footer>
+  © えんはぴ（enhp）　男の取扱説明書
+</footer>
+
+<script>
+  function toggle(btn) {
+    const card = btn.closest('.card');
+    card.classList.toggle('open');
+  }
+
+  function toggleSidebar(btn) {
+    const chapter = btn.closest('.sidebar-chapter');
+    chapter.classList.toggle('open');
+  }
+
+  // Highlight active sidebar link on scroll
+  const sections = document.querySelectorAll('[id]');
+  const links = document.querySelectorAll('.sidebar nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(l => l.style.color = '');
+        const active = document.querySelector(`.sidebar nav a[href="#${e.target.id}"]`);
+        if (active) active.style.color = 'var(--rose)';
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
